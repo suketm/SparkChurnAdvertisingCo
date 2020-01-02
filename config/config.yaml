@@ -1,0 +1,14 @@
+
+paths:
+  DATA_DIR                : ../data/
+  MODEL_DIR               : ../models/
+  RESULTS_DIR             : ../reports/
+  TRAINING_DATA           : customer_churn.csv
+  TEST_DATA               : new_customers.csv
+  MODEL_DATA              : 'ml_trained'
+  RESULTS_DATA            : 'new_customers_predictions'
+
+
+LIST_PIPELINE_FEATURES  : ['Age', 'Total_Purchase', 'Account_Manager', 'Years', 'Num_Sites']
+FEATURE_VEC             : "features"
+LABEL_VEC               : "Churn"

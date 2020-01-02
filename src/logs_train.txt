@@ -1,0 +1,4 @@
+2020-01-02 18:54:35,576 INFO root Feature engineering of training data starts.
+2020-01-02 18:54:36,147 INFO root Feature engineering of training data completed.
+2020-01-02 18:54:36,147 INFO root Machine learning on training data starts.
+2020-01-02 18:54:40,048 INFO root Training is completed. Machine learning model completed.
