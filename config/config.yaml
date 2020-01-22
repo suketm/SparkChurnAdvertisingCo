@@ -1,14 +1,36 @@
-
 paths:
   DATA_DIR                : ../data/
+  FIGURE_DIR              : ../figures/
   MODEL_DIR               : ../models/
   RESULTS_DIR             : ../reports/
   TRAINING_DATA           : customer_churn.csv
   TEST_DATA               : new_customers.csv
   MODEL_DATA              : 'ml_trained'
   RESULTS_DATA            : 'new_customers_predictions'
+  TARGET_CUSTOMERS        : 'target_customers'
+  MODEL_PARAMS            : model_params.yaml
 
 
-LIST_PIPELINE_FEATURES  : ['Age', 'Total_Purchase', 'Account_Manager', 'Years', 'Num_Sites']
-FEATURE_VEC             : "features"
-LABEL_VEC               : "Churn"
+LIST_PIPELINE_FEATURES    : ['Age', 'Total_Purchase', 'Account_Manager', 'Years', 'Num_Sites']
+FEATURE_VEC               : "features"
+LABEL_VEC                 : "Churn"
+
+ml_model_optimizer:
+  logistic_regression:
+    MAXITER             : [100]
+    REGUPARAM           : [0,1,10]
+    ALPHA               : [0.0, 0.01, 1]
+  random_forest:
+    MAXDEPTH            : [5,10,15]
+    NUMTREES            : [10,20,30]
+    MAXBINS             : [30,32,35]
+    MININSTANCESPERNODE : [1,5,10]
+
+Machine Learning Model Parameters:
+  model_algorithm:      'Random Forest'
+  threshold:            0.15
+  decile:               0.5
+  MAXDEPTH:             10
+  NUMTREES:             30
+  MAXBINS:              32
+  MININSTANCESPERNODE:  10

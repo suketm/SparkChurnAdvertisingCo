@@ -44,6 +44,13 @@ if __name__ == '__main__':
 	FEATURE_VEC = config['FEATURE_VEC']
 	LABEL_VEC = config['LABEL_VEC']
 	path_model = os.path.join(config['paths']['MODEL_DIR'],config['paths']['MODEL_DATA'])
+	path_model_parameter = os.path.join(config['paths']['MODEL_DIR'],config['paths']['MODEL_PARAMS'])
+	ml_model_param = {}
+	ml_model_param['MAXDEPTH'] = config['Machine Learning Model Parameters']['MAXDEPTH']
+	ml_model_param['NUMTREES'] = config['Machine Learning Model Parameters']['NUMTREES']
+	ml_model_param['MAXBINS'] = config['Machine Learning Model Parameters']['MAXBINS']
+	ml_model_param['MININSTANCESPERNODE'] = config['Machine Learning Model Parameters']['MININSTANCESPERNODE']
+
 	
 	### FUNCTIONS WRAPPER
 
@@ -58,9 +65,9 @@ if __name__ == '__main__':
 
 	# machine learning
 	info('Machine learning on training data starts.')
-	# [MODEL NAME] parameters found by [Technique name]
+	# Random Forest Classifier parameters found by Grid Search
 	machine_learning = MachineLearningTrain()
-	model = machine_learning.model_build(in_feature_vec = FEATURE_VEC, in_label_vec = LABEL_VEC)
+	model = machine_learning.model_build(in_feature_vec = FEATURE_VEC, in_label_vec = LABEL_VEC, in_ml_model_param = ml_model_param)
 	model_train = machine_learning.model_train(in_model = model, in_data = feature_engineered_data)
 	machine_learning.model_train_results_save()
 	machine_learning.model_save(in_model_train = model_train, in_path_model = path_model)

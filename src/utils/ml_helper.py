@@ -8,6 +8,7 @@ from pyspark.ml import Pipeline
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.classification import LogisticRegressionModel
 from pyspark.ml.classification import RandomForestClassifier
+from pyspark.ml.classification import RandomForestClassificationModel
 
 ### 2. SET LOG
 
@@ -61,15 +62,22 @@ class MachineLearningTrain(object):
 	def __init__(self):
 		pass
 
-	def model_build(self, in_feature_vec, in_label_vec):
+	def model_build(self, in_feature_vec, in_label_vec, in_ml_model_param):
 		""" 
 		build machine learning model
 		: in_feature_vec	:	feacture vector name
 		: in_label_vec		:	label vector name
+		: in_ml_model_param	:	machine learning model parameters
 		: out_model 	    :	machine learning model
 		"""
 		# fit model paramters + pass model parameters as fucntions attributes
-		out_model = LogisticRegression(labelCol= in_label_vec, featuresCol = in_feature_vec)
+		out_model = RandomForestClassifier( labelCol = in_label_vec, 
+											featuresCol = in_feature_vec,
+											maxDepth = in_ml_model_param['MAXDEPTH'],
+											maxBins = in_ml_model_param['MAXBINS'],
+											numTrees = in_ml_model_param['NUMTREES'],
+											minInstancesPerNode = in_ml_model_param['MININSTANCESPERNODE'])
+
 		return out_model
 
 	def model_train(self, in_model, in_data):
@@ -110,7 +118,7 @@ class MachineLearningTest(object):
 		: in_path_model		:	directory to store machine learning model
 		: out_model 		:	trained machine learning model
 		"""
-		out_model = LogisticRegressionModel.load(in_path_model)
+		out_model = RandomForestClassificationModel.load(in_path_model)
 		return out_model
 
 	def model_predict(self, in_model, in_df):

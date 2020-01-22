@@ -38,6 +38,7 @@ if __name__ == '__main__':
 	df_test = spark.read.csv(os.path.join(config['paths']['DATA_DIR'],config['paths']['TEST_DATA']),
 							inferSchema = True, 
 							header = True)
+	target_decile = config['Machine Learning Model Parameters']['decile']
 	
 	### CONSTANTS
 	LIST_PIPELINE_FEATURES = config['LIST_PIPELINE_FEATURES']
@@ -45,6 +46,7 @@ if __name__ == '__main__':
 	LABEL_VEC = config['LABEL_VEC']
 	path_model = os.path.join(config['paths']['MODEL_DIR'],config['paths']['MODEL_DATA'])
 	path_predictions = os.path.join(config['paths']['RESULTS_DIR'],config['paths']['RESULTS_DATA'])
+	path_target_customers = os.path.join(config['paths']['RESULTS_DIR'],config['paths']['TARGET_CUSTOMERS'])
 	list_columns = df_test.columns
 
 	### FUNCTIONS WRAPPER
@@ -67,3 +69,6 @@ if __name__ == '__main__':
 											in_df_predicted = df_predicted,
 											in_list_columns = list_columns + [FEATURE_VEC])
 	info('Prediction is completed.')
+	df_target = df_predicted.orderBy('probability').limit(int(target_decile*df_predicted.count())).select('Names')
+	df_target.write.csv(path_target_customers)
+	info('Target User List Generated')
